@@ -176,7 +176,8 @@ def game_over():
             b[i] = int((b[i] + b[i + 1] + b[i + width] + b[i + width + 1]) / 4)
             color = (4 if b[i] > 15 else (3 if b[i] > 9 else (2 if b[i] > 4 else 1)))
             if i < size - 1:
-                screen.addstr(int(i / width), i % width, char[(9 if b[i] > 9 else b[i])], curses.color_pair(color) | curses.A_BOLD)
+                screen.addstr(int(i / width), i % width, char[(9 if b[i] > 9 else b[i])],
+                              curses.color_pair(color) | curses.A_BOLD)
 
         screen.refresh()
         screen.timeout(30)
@@ -187,46 +188,27 @@ def game_over():
 
 def draw_title(stdscr, start_y, start_x):
     title = [
-        # "  ___  _    _         ____  ____   ____ ",
-        # " / _ \| |  | |       |  _ \|  _ \ / ___|",
-        # "| | | | |  | |  _____| |_) | |_) | |  _ ",
-        # "| |_| | |__| | |_____|  _ <|  __/| |_| |",
-        # " \___/|_____/        |_| \_\_|    \____|"
-        " █████╗ ███╗  ██╗██╗   ██╗ █████╗ ███╗  ██╗ ██████╗         ██████╗ ██████╗ ██╗███████╗████████╗",
-        "██╔══██╗████╗ ██║╚██╗ ██╔╝██╔══██╗████╗ ██║██╔════╝         ██╔══██╗██╔══██╗██║██╔════╝╚══██╔══╝",
-        "███████║██╔██╗██║ ╚████╔╝ ███████║██╔██╗██║██║  ██╗         ██║  ██║██████╔╝██║█████╗     ██║   ",
-        "██╔══██║██║╚████║  ╚██╔╝  ██╔══██║██║╚████║██║  ╚██╗        ██║  ██║██╔══██╗██║██╔══╝     ██║   ",
-        "██║  ██║██║ ╚███║   ██║   ██║  ██║██║ ╚███║╚██████╔╝        ██████╔╝██║  ██║██║██║        ██║   ",
-        "╚═╝  ╚═╝╚═╝  ╚══╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚══╝ ╚═════╝         ╚═════╝ ╚═╝  ╚═╝╚═╝╚═╝        ╚═╝   "
+        "        ,----,",
+        "      ,/   .`|",
+        "    ,`   .'  :",
+        "  ;    ;     /                    ,--,",
+        ".'___,/    ,' __  ,-.           ,--.'|         ,---,",
+        "|    :     |,' ,'/ /|           |  |,      ,-+-. /  |",
+        ";    |.';  ;'  | |' | ,--.--.   `--'_     ,--.'|'   |",
+        "`----'  |  ||  |   ,'/       \  ,' ,'|   |   |  ,\"' |",
+        "    '   :  ;'  :  / .--.  .-. | '  | |   |   | /  | |",
+        "    |   |  '|  | '   \__\/: . . |  | :   |   | |  | |",
+        "    '   :  |;  : |   ,\" .--.; | '  : |__ |   | |  |/",
+        "    ;   |.' |  , ;  /  /  ,.  | |  | '.'||   | |--'",
+        "    '---'    ---'  ;  :   .'   \;  :    ;|   |/",
+        "                   |  ,     .-./|  ,   / '---'",
+        "                    `--`---'     ---`-'       "
     ]
     for i, line in enumerate(title):
         stdscr.addstr(start_y + i, start_x, line)
 
-    version = "v0.0.1"
-    stdscr.addstr(start_y + len(title), start_x + len(title[0]) - len(version), version)
-
-    # author = "By Your Name"
-    # stdscr.addstr(start_y + len(title) + 2, start_x + (len(title[0]) - len(author)) // 2, author)
-
-    ##
-    # draw_label_centered(stdscr, 3,
-    #                     " █████╗ ███╗  ██╗██╗   ██╗ █████╗ ███╗  ██╗ ██████╗   ██████╗ ██████╗ ██╗███████╗████████╗",
-    #                     curses.color_pair(3))
-    # draw_label_centered(stdscr, 4,
-    #                     "██╔══██╗████╗ ██║╚██╗ ██╔╝██╔══██╗████╗ ██║██╔════╝   ██╔══██╗██╔══██╗██║██╔════╝╚══██╔══╝",
-    #                     curses.color_pair(3))
-    # draw_label_centered(stdscr, 5,
-    #                     "███████║██╔██╗██║ ╚████╔╝ ███████║██╔██╗██║██║  ██╗   ██║  ██║██████╔╝██║█████╗     ██║   ",
-    #                     curses.color_pair(3))
-    # draw_label_centered(stdscr, 6,
-    #                     "██╔══██║██║╚████║  ╚██╔╝  ██╔══██║██║╚████║██║  ╚██╗  ██║  ██║██╔══██╗██║██╔══╝     ██║   ",
-    #                     curses.color_pair(3))
-    # draw_label_centered(stdscr, 7,
-    #                     "██║  ██║██║ ╚███║   ██║   ██║  ██║██║ ╚███║╚██████╔╝  ██████╔╝██║  ██║██║██║        ██║   ",
-    #                     curses.color_pair(3))
-    # draw_label_centered(stdscr, 8,
-    #                     "╚═╝  ╚═╝╚═╝  ╚══╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚══╝ ╚═════╝   ╚═════╝ ╚═╝  ╚═╝╚═╝╚═╝        ╚═╝   ",
-    #                     curses.color_pair(3))
+    # version = "v0.0.1"
+    # stdscr.addstr(start_y + len(title), start_x + len(title[0]) - len(version), version)
 
 
 def draw_menu(stdscr, selected_row_idx, start_y, start_x):
@@ -283,10 +265,10 @@ def main(stdscr):
         height, width = stdscr.getmaxyx()
 
         title_start_y = height // 10
-        title_start_x = (width - 96) // 2  # 96 is the width of the title ASCII art
+        title_start_x = (width - 50) // 2  # 96 is the width of the title ASCII art
 
         # menu_start_y = title_start_y + 10
-        menu_start_y = height // 2
+        menu_start_y = int(height // 1.3)
         menu_start_x = (width - 20) // 2
 
         draw_title(stdscr, title_start_y, title_start_x)
