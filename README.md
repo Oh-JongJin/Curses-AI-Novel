@@ -10,7 +10,7 @@ CLI visual novel game using Python *Curses* library.
 
 
 
-Terminal needs to be set to **100x30** for execution.
+Recommend setting the terminal size to **100x30**
 
 
 
