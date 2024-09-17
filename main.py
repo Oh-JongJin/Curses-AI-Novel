@@ -1,153 +1,6 @@
-# import curses
-# import sys
-# import time
-#
-# from draw import draw_label_centered
-#
-#
-# class Letgo:
-#     def __init__(self, stdscr):
-#         self.stdscr = stdscr
-#         curses.curs_set(0)
-#         self.height, self.width = stdscr.getmaxyx()
-#         self.text_win = curses.newwin(3, self.width, self.height - 3, 0)
-#         self.main_win = curses.newwin(self.height - 3, self.width, 0, 0)
-#         curses.init_pair(1, curses.COLOR_RED, curses.COLOR_BLACK)
-#         curses.init_pair(2, curses.COLOR_GREEN, curses.COLOR_BLACK)
-#
-#         curses.init_pair(6, curses.COLOR_YELLOW, curses.COLOR_BLACK)
-#         curses.init_pair(7, curses.COLOR_RED, curses.COLOR_BLACK)
-#         curses.init_pair(8, curses.COLOR_GREEN, curses.COLOR_BLACK)
-#         curses.init_pair(9, curses.COLOR_BLUE, curses.COLOR_BLACK)
-#
-#         draw_label_centered(stdscr, 3,
-#                             " █████╗ ███╗  ██╗██╗   ██╗ █████╗ ███╗  ██╗ ██████╗   ██████╗ ██████╗ ██╗███████╗████████╗",
-#                             curses.color_pair(3))
-#         draw_label_centered(stdscr, 4,
-#                             "██╔══██╗████╗ ██║╚██╗ ██╔╝██╔══██╗████╗ ██║██╔════╝   ██╔══██╗██╔══██╗██║██╔════╝╚══██╔══╝",
-#                             curses.color_pair(3))
-#         draw_label_centered(stdscr, 5,
-#                             "███████║██╔██╗██║ ╚████╔╝ ███████║██╔██╗██║██║  ██╗   ██║  ██║██████╔╝██║█████╗     ██║   ",
-#                             curses.color_pair(3))
-#         draw_label_centered(stdscr, 6,
-#                             "██╔══██║██║╚████║  ╚██╔╝  ██╔══██║██║╚████║██║  ╚██╗  ██║  ██║██╔══██╗██║██╔══╝     ██║   ",
-#                             curses.color_pair(3))
-#         draw_label_centered(stdscr, 7,
-#                             "██║  ██║██║ ╚███║   ██║   ██║  ██║██║ ╚███║╚██████╔╝  ██████╔╝██║  ██║██║██║        ██║   ",
-#                             curses.color_pair(3))
-#         draw_label_centered(stdscr, 8,
-#                             "╚═╝  ╚═╝╚═╝  ╚══╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚══╝ ╚═════╝   ╚═════╝ ╚═╝  ╚═╝╚═╝╚═╝        ╚═╝   ",
-#                             curses.color_pair(3))
-#
-#         draw_label_centered(stdscr, 15,
-#                             "╚═╝  ╚═╝╚═╝  ╚══╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚══╝ ╚═════╝   ╚═════╝ ╚═╝  ╚═╝╚═╝╚═╝        ╚═╝   ",
-#                             curses.color_pair(3))
-#
-#     def draw_menu(self, stdscr, selected_row_idx, start_y, start_x):
-#         menu_items = ['Continue', 'New Game', 'Settings', 'Quit']
-#         for idx, item in enumerate(menu_items):
-#             x = start_x + (20 - len(item)) // 2
-#             y = start_y + idx
-#             if idx == selected_row_idx:
-#                 stdscr.attron(curses.color_pair(1))
-#                 stdscr.addstr(y, x, item)
-#                 stdscr.attroff(curses.color_pair(1))
-#             else:
-#                 stdscr.addstr(y, x, item)
-#
-#         # Draw menu border
-#         stdscr.box()
-#         stdscr.addch(start_y - 1, start_x - 1, curses.ACS_ULCORNER)
-#         stdscr.addch(start_y - 1, start_x + 20, curses.ACS_URCORNER)
-#         stdscr.addch(start_y + 4, start_x - 1, curses.ACS_LLCORNER)
-#         stdscr.addch(start_y + 4, start_x + 20, curses.ACS_LRCORNER)
-#         for i in range(4):
-#             stdscr.addch(start_y + i, start_x - 1, curses.ACS_VLINE)
-#             stdscr.addch(start_y + i, start_x + 20, curses.ACS_VLINE)
-#         for i in range(20):
-#             stdscr.addch(start_y - 1, start_x + i, curses.ACS_HLINE)
-#             stdscr.addch(start_y + 4, start_x + i, curses.ACS_HLINE)
-#
-#     def display_text(self, text):
-#         self.text_win.clear()
-#         self.text_win.addstr(0, 0, text)
-#         self.text_win.refresh()
-#
-#     def display_scene(self, scene):
-#         self.main_win.clear()
-#         for i, line in enumerate(scene.split('\n')):
-#             self.main_win.addstr(i, 0, line)
-#         self.main_win.refresh()
-#
-#     def display_title_screen(self):
-#         self.main_win.clear()
-#         title = "ANYANG DRIFT"
-#         start_button = "[ Start Game ]"
-#
-#         # Display title
-#         title_y = self.height // 4
-#         title_x = (self.width - len(title)) // 2
-#         self.main_win.attron(curses.color_pair(1) | curses.A_BOLD)
-#         self.main_win.addstr(title_y, title_x, title)
-#         self.main_win.attroff(curses.color_pair(1) | curses.A_BOLD)
-#
-#         # Display start button
-#         button_y = self.height // 2
-#         button_x = (self.width - len(start_button)) // 2
-#         self.main_win.attron(curses.color_pair(2))
-#         self.main_win.addstr(button_y, button_x, start_button)
-#         self.main_win.attroff(curses.color_pair(2))
-#
-#         self.main_win.refresh()
-#
-#         # Wait for user input
-#         while True:
-#             key = self.stdscr.getch()
-#             if key == ord('\n'):  # Enter key
-#                 break
-#
-#     def run(self):
-#         self.display_title_screen()
-#
-#         scenes = [
-#             "You're at the starting line of the biggest motorcycle race in Anyang.",
-#             "The crowd is roaring, and you can feel the adrenaline pumping.",
-#             "As you rev your engine, you notice two paths ahead on the track."
-#         ]
-#
-#         choices = [
-#             ["1. Take the inside lane", "2. Go for the outside lane"],
-#             ["1. Push your bike to the limit", "2. Maintain a steady pace"],
-#             ["1. Take a risky shortcut", "2. Stick to the main track"]
-#         ]
-#
-#         for i, scene in enumerate(scenes):
-#             self.display_scene(scene)
-#             self.display_text("Press any key to continue...")
-#             self.stdscr.getch()
-#
-#             if i < len(choices):
-#                 self.display_text("\n".join(choices[i]))
-#                 while True:
-#                     key = self.stdscr.getch()
-#                     if key in [ord('1'), ord('2')]:
-#                         break
-#
-#
-# def main(stdscr):
-#     curses.start_color()
-#     game = Letgo(stdscr)
-#     game.run()
-#
-#
-# curses.wrapper(main)
-# sys.exit()
-
-
-######################
-
 import curses
 import random
+import time
 
 
 def game_over():
@@ -164,7 +17,7 @@ def game_over():
     curses.init_pair(4, 1, 0)
     curses.init_pair(3, 6, 0)
     curses.init_pair(2, 4, 0)
-    screen.clear
+    screen.clear()
 
     for i in range(size + width + 1):
         b.append(0)
@@ -205,10 +58,12 @@ def draw_title(stdscr, start_y, start_x):
         "                    `--`---'     ---`-'       "
     ]
     for i, line in enumerate(title):
-        stdscr.addstr(start_y + i, start_x, line)
+        try:
+            stdscr.addstr(start_y + i, start_x, line)
+        except curses.error:
+            pass
 
-    # version = "v0.0.1"
-    # stdscr.addstr(start_y + len(title), start_x + len(title[0]) - len(version), version)
+    return title
 
 
 def draw_menu(stdscr, selected_row_idx, start_y, start_x):
@@ -254,6 +109,23 @@ def draw_road(stdscr, y, x, menu_width):
         stdscr.addch(y + i, road_end_x - i - 1, '/')
 
 
+def new_game(stdscr, title, start_y, start_x):
+    height, width = stdscr.getmaxyx()
+    title_height = len(title)
+
+    for i in range(title_height + start_y + 20):
+        stdscr.clear()
+        for j, line in enumerate(title):
+            y = start_y + title_height - i + j
+            if 0 <= y < height:
+                try:
+                    stdscr.addstr(y, start_x, line)
+                except curses.error:
+                    pass
+        stdscr.refresh()
+        time.sleep(0.1)
+
+
 def main(stdscr):
     curses.curs_set(0)
     curses.init_pair(1, curses.COLOR_BLACK, curses.COLOR_WHITE)
@@ -271,8 +143,8 @@ def main(stdscr):
         menu_start_y = int(height // 1.3)
         menu_start_x = (width - 20) // 2
 
-        draw_title(stdscr, title_start_y, title_start_x)
-        # draw_title(stdscr, 5, 5)
+        # draw_title(stdscr, title_start_y, title_start_x)
+        title = draw_title(stdscr, title_start_y, title_start_x)
         draw_menu(stdscr, selected_row_idx, menu_start_y, menu_start_x)
 
         key = stdscr.getch()
@@ -282,7 +154,9 @@ def main(stdscr):
         elif key == curses.KEY_DOWN and selected_row_idx < 3:
             selected_row_idx += 1
         elif key == 10:  # Enter key
-            if selected_row_idx == 2:
+            if selected_row_idx == 1:
+                new_game(stdscr, title, title_start_y + 20, title_start_x)
+            elif selected_row_idx == 2:
                 game_over()
                 break
             elif selected_row_idx == 3:  # Quit option
