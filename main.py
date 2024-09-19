@@ -115,6 +115,7 @@ def new_game(stdscr, title, start_y, start_x):
 
     for i in range(title_height + start_y + 20):
         stdscr.clear()
+        stdscr.box()
         for j, line in enumerate(title):
             y = start_y + title_height - i + j
             if 0 <= y < height:
