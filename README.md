@@ -1,6 +1,6 @@
-# Curses-AI-Novel
+# Curses-maker
 
-CLI visual novel game using Python *Curses* library.
+CLI make something using Python *Curses* library.
 
 
 
