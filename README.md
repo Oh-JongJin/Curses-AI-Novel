@@ -22,3 +22,8 @@ Recommend setting the terminal size to **100x30**
 python main.py
 ```
 
+
+
+
+
+![result](F:\Workspace\curses-maker\result.gif)
