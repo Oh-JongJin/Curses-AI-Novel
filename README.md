@@ -26,4 +26,6 @@ python main.py
 
 
 
-![result](result.gif)
+<p align="center">
+    <img src="result.gif">
+p>
