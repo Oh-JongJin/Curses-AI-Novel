@@ -26,4 +26,4 @@ python main.py
 
 
 
-![result](F:\Workspace\curses-maker\result.gif)
+![result](result.gif)
